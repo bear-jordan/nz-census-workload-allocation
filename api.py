@@ -4,8 +4,8 @@ SQL_WORKLOADS_FILEPATH = "./sql/workloads.sql"
 SQL_WORK_ITEMS_FILEPATH = "./sql/workitems.sql"
 SQL_LOCATIONS_FILEPATH = "./sql/locations.sql"
 
-TEST_X_FILEPATH = "./test-data/test-database.csv"
-TEST_X_NEW_FILEPATH = "./test-data/test-wcat.csv"
+TEST_X_FILEPATH = "./test-data/test-rand-database.csv"
+TEST_X_NEW_FILEPATH = "./test-data/test-rand-wcat.csv"
 X_NEW_FILEPATH = ""
 
 SERVER = 'tcp:myserver.database.windows.net' 
