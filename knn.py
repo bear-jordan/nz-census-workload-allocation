@@ -1,11 +1,12 @@
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.preprocessing import LabelEncoder()
+from sklearn.preprocessing import LabelEncoder
+import numpy as np
 
 def encode(y):
     encoder = LabelEncoder()
-    yTransform = le.fit_transform(y)
+    yTransform = encoder.fit_transform(np.ravel(y))
     
-    return (y, encoder)
+    return (yTransform, encoder)
     
 def decode(y, encoder):
     return encoder.inverse_transform(y)
@@ -20,8 +21,8 @@ def predict_knn(model, X_new):
     return model.predict(X_new)
     
 def run_knn(X, y, X_new):
-    y, encoder = encode(y)
-    model = fit_knn(X, y)
+    yTransform, encoder = encode(y)
+    model = fit_knn(X, yTransform)
     predictions = predict_knn(model, X_new)
     predictionsTransform = decode(predictions, encoder)
      

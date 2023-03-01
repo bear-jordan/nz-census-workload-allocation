@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 LONGITUDE_NAME = "longitude"
 LATITUDE_NAME = "latitude"
@@ -18,20 +19,20 @@ def get_X(data):
     return data.loc[:, [LATITUDE_NAME, LONGITUDE_NAME]].to_numpy()
 
 def get_X_new(newData):
-    if LONGITUDE_NAME not in data.columns:
+    if LONGITUDE_NAME not in newData.columns:
         raise ValueError("Check longitude name")
-    if LATITUDE_NAME not in data.columns:
+    if LATITUDE_NAME not in newData.columns:
         raise ValueError("Check latitude name")
         
-    return data.loc[:, [LATITUDE_NAME, LONGITUDE_NAME]].to_numpy()
+    return newData.loc[:, [LATITUDE_NAME, LONGITUDE_NAME]].to_numpy()
     
-def get_y(data):
+def get_workitem(data):
     if WORK_ITEM_NAME not in data.columns:
         raise ValueError("Check work item name")
     
     return data.loc[:, [WORK_ITEM_NAME]].to_numpy()
     
-def get_y_new(newData):
+def get_workitem_new(newData):
     if WORK_ITEM_NAME_NEW not in newData.columns:
         raise ValueError("Check work item name")
     
@@ -43,26 +44,24 @@ def get_workloads(data):
         
     return data.loc[:, [WORKLOAD_NAME]].to_numpy()
 
-def get_resulting_workloads(classifications):
-    translations = pd.DataFrame({WORKLOAD_NAME: get_workloads(), WORK_ITEM_NAME: get_y()})
-    
+def get_resulting_workloads(classifications, data, newData):
+    # What workloads should the new data be assigned to?
+    translations = pd.DataFrame({WORKLOAD_NAME: np.ravel(get_workloads(data)), WORK_ITEM_NAME: np.ravel(get_workitem(data))})
     def check_item(item):
-        if item not in translations.loc[:, [WORK_ITEM_NAME]]:
+        if item not in translations.loc[:, [WORK_ITEM_NAME]].values:
             raise ValueError("Predicted work item not found in the workloads")
     [check_item(item) for item in classifications]
     
-    classSeries = pd.Series({"classifications": classifications})
-    workitems = pd.Series({WORK_ITEM_NAME: get_y_new()})
-    workloadResults = classSeries.join(translations, how="left", on=["classifications", WORK_ITEM_NAME])
-    workloadResults = workloadResults.loc[:, [WORKLOAD_NAME]
-    results = pd.DataFrame([workloadResults, workitems])
+    newWorkitems = pd.DataFrame({WORK_ITEM_NAME: np.ravel(get_workitem_new(newData)), "closest": classifications})
+    results = pd.merge(newWorkitems, translations, how="left", left_on="closest", right_on="workitem", suffixes=('', '_original'))
+    results = results.loc[:, [WORK_ITEM_NAME, WORKLOAD_NAME]]
     
     return results
     
 
 def run_cleaner(data, newData):
-    X = get_X()
-    y = get_y()
+    X = get_X(data)
+    y = get_workitem(data)
     X_new = get_X_new(newData)
     workloads = get_workloads(data)
     
