@@ -1,5 +1,8 @@
+# Moduless
 import pandas as pd
 
+
+# Global Variabless
 SQL_WORKLOADS_FILEPATH = "./sql/workloads.sql"
 SQL_WORK_ITEMS_FILEPATH = "./sql/workitems.sql"
 SQL_LOCATIONS_FILEPATH = "./sql/locations.sql"
@@ -12,6 +15,16 @@ SERVER = 'tcp:myserver.database.windows.net'
 DATBASE = 'mydb' 
 USERNAME = 'myusername' 
 PASSWORD = 'mypassword' 
+
+# Body
+def request_new_data():
+    return pd.read_csv(X_NEW_FILEPATH)
+
+def test_request_data():
+    return pd.read_csv(TEST_X_FILEPATH)
+
+def test_request_new_data():
+    return pd.read_csv(TEST_X_NEW_FILEPATH)
 
 # def get_sql_workloads():
 #     with open(SQL_WORKLOADS_FILEPATH, "r") as query:
@@ -35,12 +48,3 @@ PASSWORD = 'mypassword'
 #     locations = cursor.execute(SQL_LOCATIONS_FILEPATH).fetchall() 
     
 #     return 1
-
-def request_new_data():
-    return pd.read_csv(X_NEW_FILEPATH)
-
-def test_request_data():
-    return pd.read_csv(TEST_X_FILEPATH)
-
-def test_request_new_data():
-    return pd.read_csv(TEST_X_NEW_FILEPATH)

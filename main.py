@@ -1,13 +1,15 @@
 # Modules
 import pandas as pd
 
-# Custom modules
+# Custom Modules
 from knn import *
 from api import *
 from cleaner import *
 
+# Global Variables
 RESULT_FILEPATH = "./results/new_workloads"
 
+# Body
 def main():
     data = test_request_data()
     newData = test_request_new_data()

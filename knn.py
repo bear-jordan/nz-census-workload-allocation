@@ -1,7 +1,9 @@
+# Modules
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
 
+# Body
 def encode(y):
     encoder = LabelEncoder()
     yTransform = encoder.fit_transform(np.ravel(y))

@@ -1,6 +1,8 @@
+# Modules
 import pandas as pd
 import random
 
+# Body
 def gen_coordinate():
     return random.randint(-50, 50)
 
@@ -28,5 +30,5 @@ def gen_current():
     data = pd.DataFrame({"latitude":y, "longitude":x, "workitem":list(range(11,36)), "workload":wl})
     data.to_csv("./test-data/test-rand-database.csv", index=False)
     
-gen_wcat()
-gen_current()
+# gen_wcat()
+# gen_current()

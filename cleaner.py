@@ -1,6 +1,8 @@
+# Modules
 import pandas as pd
 import numpy as np
 
+# Global Variables
 LONGITUDE_NAME = "longitude"
 LATITUDE_NAME = "latitude"
 WORK_ITEM_NAME = "workitem"
@@ -10,6 +12,7 @@ LONGITUDE_NAME_NEW = "longitude"
 LATITUDE_NAME_NEW = "latitude"
 WORK_ITEM_NAME_NEW = "workitem"
 
+# Body
 def get_X(data):
     if LONGITUDE_NAME not in data.columns:
         raise ValueError("Check longitude name")
@@ -45,7 +48,6 @@ def get_workloads(data):
     return data.loc[:, [WORKLOAD_NAME]].to_numpy()
 
 def get_resulting_workloads(classifications, data, newData):
-    # What workloads should the new data be assigned to?
     translations = pd.DataFrame({WORKLOAD_NAME: np.ravel(get_workloads(data)), WORK_ITEM_NAME: np.ravel(get_workitem(data))})
     def check_item(item):
         if item not in translations.loc[:, [WORK_ITEM_NAME]].values:
