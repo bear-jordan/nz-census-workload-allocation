@@ -3,14 +3,16 @@ import pandas as pd
 import numpy as np
 
 # Global Variables
-LONGITUDE_NAME = "longitude"
-LATITUDE_NAME = "latitude"
-WORK_ITEM_NAME = "workitem"
-WORKLOAD_NAME = "workload"
+## Databases
+LONGITUDE_NAME = "Easting"
+LATITUDE_NAME = "Northing"
+WORK_ITEM_NAME = "Work Item ID"
+WORKLOAD_NAME = "SF Workload ID"
 
-LONGITUDE_NAME_NEW = "longitude"
-LATITUDE_NAME_NEW = "latitude"
-WORK_ITEM_NAME_NEW = "workitem"
+## WCATs
+LONGITUDE_NAME_NEW = "Easting"
+LATITUDE_NAME_NEW = "Northing"
+WORK_ITEM_NAME_NEW = "Work Item ID"
 
 # Body
 def get_X(data):

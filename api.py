@@ -16,6 +16,9 @@ DATBASE = 'mydb'
 USERNAME = 'myusername' 
 PASSWORD = 'mypassword' 
 
+PROD_WCAT_FILEPATH = "./prod-data/prod-database.csv"
+PROD_DATABASE_FILEPATH = "./prod-data/prod-wcat.csv"
+
 # Body
 def request_new_data():
     return pd.read_csv(X_NEW_FILEPATH)
@@ -25,6 +28,12 @@ def test_request_data():
 
 def test_request_new_data():
     return pd.read_csv(TEST_X_NEW_FILEPATH)
+
+def prod_request_data():
+    return pd.read_csv(PROD_DATABASE_FILEPATH)
+
+def prod_request_new_data():
+    return pd.read_csv(PROD_WCAT_FILEPATH)
 
 # def get_sql_workloads():
 #     with open(SQL_WORKLOADS_FILEPATH, "r") as query:
