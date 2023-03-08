@@ -2,22 +2,22 @@
 import pandas as pd
 
 # Custom Modules
-from knn import *
-from api import *
-from cleaner import *
-
-# Global Variables
-RESULT_FILEPATH = "./results/prod-new-workloads.csv"
+from utils.parser import *
+from utils.knn import *
+from utils.api import *
+from utils.cleaner import *
 
 # Body
 def main():
-    data = prod_request_data()
-    newData = prod_request_new_data()
-    X, y, X_new, _ = run_cleaner(data, newData)
+    wcatPath, databasePath = run_parser()
+    data = request_data(databasePath)
+    newData = request_data(wcatPath)
+    X, y, X_new = run_cleaner(data, newData)
     classifications = run_knn(X, y, X_new)
     results = get_resulting_workloads(classifications, data, newData)
     results.to_csv(RESULT_FILEPATH, index=False)
     
 if __name__ == "__main__":
     main()
+    print("Allocation complete. Check the results folder.")
     
